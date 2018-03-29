@@ -15,6 +15,7 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         sharedClient = new Client.Builder(this).build();
+        sharedClient.enableDebugLogging();
     }
 
     public Client getSharedClient(){

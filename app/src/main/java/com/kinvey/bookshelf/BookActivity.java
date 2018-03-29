@@ -41,6 +41,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Prots on 3/15/16.
@@ -82,7 +83,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.remove).setOnClickListener(this);
         findViewById(R.id.select_image_btn).setOnClickListener(this);
 
-        bookStore = DataStore.collection(Constants.COLLECTION_NAME, Book.class, StoreType.CACHE, client);
+        bookStore = DataStore.collection(Constants.COLLECTION_NAME, Book.class, StoreType.SYNC, client);
         verifyStoragePermissions(this);
         ArrayList<StoreType> storeTypes = new ArrayList<>();
         storeTypes.add(StoreType.SYNC);
@@ -144,6 +145,12 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             showProgress(getResources().getString(R.string.progress_save));
             book.setName(name.getText().toString());
+            List<String> coAuthors = new ArrayList<>();
+            coAuthors.add("Ivanov");
+            coAuthors.add("Petrov");
+            coAuthors.add("Sidorov");
+            book.setCoAuthorsNames(coAuthors);
+            book.setAuthor(new Author("Tolstoy"));
             bookStore.save(book,
                     new KinveyClientCallback<Book>() {
                         @Override
@@ -183,16 +190,6 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                 public void onFailure(Throwable throwable) {
                     dismissProgress();
                     Toast.makeText(getApplication(), getResources().getString(R.string.toast_find_failed), Toast.LENGTH_LONG).show();
-                }
-            }, new KinveyCachedClientCallback<Book>() {
-                @Override
-                public void onSuccess(Book book) {
-                    Log.d(TAG, "CachedClientCallback: success");
-                }
-
-                @Override
-                public void onFailure(Throwable throwable) {
-                    Log.d(TAG, "CachedClientCallback: failure");
                 }
             });
         }
@@ -269,16 +266,6 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean isCancelled() {
                 return false;
-            }
-        }, new KinveyCachedClientCallback<FileMetaData>() {
-            @Override
-            public void onSuccess(FileMetaData fileMetaData) {
-                Log.d(TAG, "CachedClientCallback: success");
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                Log.d(TAG, "CachedClientCallback: failure");
             }
         });
     }
