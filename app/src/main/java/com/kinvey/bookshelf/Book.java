@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class Book extends GenericJson {
 
-    @Key(Constants.NAME)
+    @Key
     private String name;
 
-    @Key(Constants.IMAGE_ID)
+    @Key
     private String imageId;
 
     @Key
@@ -40,17 +40,6 @@ public class Book extends GenericJson {
 
     public void setImageId(String imageId) {
         this.imageId = imageId;
-    }
-
-    @Key(Constants.CO_AUTHORS_NAMES)
-    private List<String> coAuthorsNames;
-
-    public List<String> getCoAuthorsNames() {
-        return coAuthorsNames;
-    }
-
-    public void setCoAuthorsNames(List<String> coAuthorsNames) {
-        this.coAuthorsNames = coAuthorsNames;
     }
 
     public Author getAuthor() {
