@@ -29,7 +29,6 @@ import com.kinvey.android.Client;
 import com.kinvey.android.callback.AsyncUploaderProgressListener;
 import com.kinvey.android.callback.KinveyDeleteCallback;
 import com.kinvey.android.store.DataStore;
-import com.kinvey.java.cache.KinveyCachedClientCallback;
 import com.kinvey.android.callback.AsyncDownloaderProgressListener;
 import com.kinvey.java.core.KinveyClientCallback;
 import com.kinvey.java.core.MediaHttpDownloader;

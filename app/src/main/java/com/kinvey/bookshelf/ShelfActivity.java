@@ -20,17 +20,18 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.kinvey.android.Client;
-import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.android.callback.KinveyPurgeCallback;
+import com.kinvey.android.callback.KinveyReadCallback;
 import com.kinvey.android.store.DataStore;
 import com.kinvey.android.store.UserStore;
 import com.kinvey.android.sync.KinveyPullCallback;
-import com.kinvey.android.sync.KinveyPullResponse;
 import com.kinvey.android.sync.KinveyPushCallback;
 import com.kinvey.android.sync.KinveyPushResponse;
 import com.kinvey.android.sync.KinveySyncCallback;
 import com.kinvey.java.core.KinveyClientCallback;
 import com.kinvey.android.model.User;
+import com.kinvey.java.model.KinveyPullResponse;
+import com.kinvey.java.model.KinveyReadResponse;
 import com.kinvey.java.store.StoreType;
 
 import java.io.IOException;
@@ -103,10 +104,10 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
 
     private void sync() {
         showProgress(getResources().getString(R.string.progress_sync));
-        bookStore.sync(new KinveySyncCallback<Book>() {
+        bookStore.sync(new KinveySyncCallback() {
             @Override
-            public void onSuccess(KinveyPushResponse kinveyPushResponse, KinveyPullResponse<Book> kinveyPullResponse) {
-                updateBookAdapter(kinveyPullResponse.getResult());
+            public void onSuccess(KinveyPushResponse kinveyPushResponse, KinveyPullResponse kinveyPullResponse) {
+                getData();
                 dismissProgress();
                 Toast.makeText(ShelfActivity.this, R.string.toast_sync_completed, Toast.LENGTH_LONG).show();
             }
@@ -122,9 +123,10 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
             }
 
             @Override
-            public void onPullSuccess(KinveyPullResponse<Book> kinveyPullResponse) {
+            public void onPullSuccess(KinveyPullResponse kinveyPullResponse) {
 
             }
+
 
             @Override
             public void onPushSuccess(KinveyPushResponse kinveyPushResponse) {
@@ -140,10 +142,10 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     private void getData() {
-        bookStore.find(new KinveyListCallback<Book>() {
+        bookStore.find(new KinveyReadCallback<Book>() {
             @Override
-            public void onSuccess(List<Book> books) {
-                updateBookAdapter(books);
+            public void onSuccess(KinveyReadResponse<Book> kinveyReadResponse) {
+                updateBookAdapter(kinveyReadResponse.getResult());
                 Log.d(TAG, "ListCallback: success");
             }
 
@@ -211,11 +213,11 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
 
     private void pull() {
         showProgress(getResources().getString(R.string.progress_pull));
-        bookStore.pull(new KinveyPullCallback<Book>() {
+        bookStore.pull(new KinveyPullCallback() {
             @Override
             public void onSuccess(KinveyPullResponse kinveyPullResponse) {
                 dismissProgress();
-                updateBookAdapter(kinveyPullResponse.getResult());
+                getData();
                 Toast.makeText(ShelfActivity.this, R.string.toast_pull_completed, Toast.LENGTH_LONG).show();
             }
 
