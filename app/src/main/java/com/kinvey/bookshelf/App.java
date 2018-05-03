@@ -2,6 +2,8 @@ package com.kinvey.bookshelf;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.kinvey.android.Client;
 
 /**
@@ -14,6 +16,7 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        AppEventsLogger.activateApp(this);
         sharedClient = new Client.Builder(this).build();
         sharedClient.enableDebugLogging();
     }
