@@ -18,8 +18,6 @@ public final class Constants {
      * Books
      */
     public static final String ID = "_id";
-    public static final String NAME = "name";
-    public static final String IMAGE_ID = "image_id";
     public static final String COLLECTION_NAME = "Book";
 
 }
