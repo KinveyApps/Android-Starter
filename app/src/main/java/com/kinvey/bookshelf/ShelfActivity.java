@@ -16,12 +16,14 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.internal.Logger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.kinvey.android.Client;
 import com.kinvey.android.callback.KinveyPurgeCallback;
 import com.kinvey.android.callback.KinveyReadCallback;
 import com.kinvey.android.store.DataStore;
+import com.kinvey.java.store.BaseDataStore;
 import com.kinvey.android.store.UserStore;
 import com.kinvey.android.sync.KinveyPullCallback;
 import com.kinvey.android.sync.KinveyPushCallback;
@@ -45,6 +47,7 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
     private Client client;
     private BooksAdapter adapter;
     private DataStore<Book> bookStore;
+    private DataStore<DeltaSyncTest> deltaSyncTestStore;
     private ProgressDialog progressDialog;
     private CallbackManager mCallbackManager;
 
@@ -56,6 +59,8 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
         setSupportActionBar(toolbar);
         client = ((App) getApplication()).getSharedClient();
         bookStore = DataStore.collection(Constants.COLLECTION_NAME, Book.class, StoreType.SYNC, client);
+        deltaSyncTestStore = DataStore.collection(Constants.COLLECTION_NAME_CINTAS, DeltaSyncTest.class, StoreType.SYNC, client);
+        ((BaseDataStore)deltaSyncTestStore).setDeltaSetCachingEnabled(true);
 
         mCallbackManager = CallbackManager.Factory.create();
 
@@ -211,9 +216,12 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
 
     private void pull() {
         showProgress(getResources().getString(R.string.progress_pull));
-        bookStore.pull(new KinveyPullCallback() {
+//        bookStore.pull(new KinveyPullCallback() {
+        System.out.println("Pull started.");
+        deltaSyncTestStore.pull(new KinveyPullCallback() {
             @Override
             public void onSuccess(KinveyPullResponse kinveyPullResponse) {
+                System.out.println("Pull complete, onSuccess() called.");
                 dismissProgress();
                 getData();
                 Toast.makeText(ShelfActivity.this, R.string.toast_pull_completed, Toast.LENGTH_LONG).show();
@@ -221,6 +229,7 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
 
             @Override
             public void onFailure(Throwable error) {
+                System.out.println("Pull complete, onFailure() called.");
                 dismissProgress();
                 Toast.makeText(ShelfActivity.this, R.string.toast_pull_failed, Toast.LENGTH_LONG).show();
             }
@@ -252,7 +261,8 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
     private void login(){
         showProgress(getResources().getString(R.string.progress_login));
         try {
-            UserStore.login(Constants.USER_NAME, Constants.USER_PASSWORD, client, new KinveyClientCallback<User>() {
+//            UserStore.login(Constants.USER_NAME, Constants.USER_PASSWORD, client, new KinveyClientCallback<User>() {
+            UserStore.login(Constants.USER_NAME_CINTAS, Constants.USER_PASSWORD_CINTAS, client, new KinveyClientCallback<User>() {
                 @Override
                 public void onSuccess(User result) {
                     //successfully logged in
