@@ -7,13 +7,13 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.1.1'
+    classpath 'com.android.tools.build:gradle:3.1.2'
   }
 }
 
 android {
   compileSdkVersion 27
-  buildToolsVersion "25.0.3"
+  buildToolsVersion '27.0.3'
 
   dexOptions {
     javaMaxHeapSize "4g"
@@ -26,8 +26,13 @@ android {
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
-
+    javaCompileOptions {
+      annotationProcessorOptions {
+        includeCompileClasspath true
+      }
+    }
   }
+
   buildTypes {
     release {
       minifyEnabled false
