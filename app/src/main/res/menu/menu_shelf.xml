@@ -28,6 +28,11 @@
         android:title="@string/action_purge"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/action_save_batch"
+        android:orderInCategory="100"
+        android:title="@string/action_save_batch"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/action_login"
         android:orderInCategory="100"
         android:title="@string/action_login"

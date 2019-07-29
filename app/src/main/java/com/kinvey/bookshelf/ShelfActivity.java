@@ -27,8 +27,8 @@ import com.kinvey.android.sync.KinveyPullCallback;
 import com.kinvey.android.sync.KinveyPushCallback;
 import com.kinvey.android.sync.KinveyPushResponse;
 import com.kinvey.android.sync.KinveySyncCallback;
-import com.kinvey.java.core.KinveyClientCallback;
 import com.kinvey.android.model.User;
+import com.kinvey.java.core.KinveyClientCallback;
 import com.kinvey.java.model.KinveyPullResponse;
 import com.kinvey.java.model.KinveyReadResponse;
 import com.kinvey.java.store.StoreType;
@@ -41,6 +41,7 @@ import java.util.List;
 public class ShelfActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private final String TAG = ShelfActivity.class.getSimpleName();
+    private final int SAVE_BOOKS_COUNT = 5;
 
     private Client client;
     private BooksAdapter adapter;
@@ -54,6 +55,7 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_shelf);
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
+
         client = ((App) getApplication()).getSharedClient();
         bookStore = DataStore.collection(Constants.COLLECTION_NAME, Book.class, StoreType.SYNC, client);
 
@@ -184,6 +186,9 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
                 Intent i = new Intent(this, BookActivity.class);
                 startActivity(i);
                 return true;
+            case R.id.action_save_batch:
+                saveBatch();
+                break;
             case R.id.action_sync:
                 sync();
                 break;
@@ -248,6 +253,39 @@ public class ShelfActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         });
     }
+
+
+    private void saveBatch() {
+        List<Book> list = generateList(5);
+        bookStore.save(list,
+            new KinveyClientCallback<List<Book>>() {
+
+                @Override
+                public void onSuccess(List<Book> result) {
+                    dismissProgress();
+                    Toast.makeText(getApplication(), getResources().getString(R.string.toast_batch_items_created), Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    dismissProgress();
+                    Toast.makeText(getApplication(), getResources().getString(R.string.toast_save_failed), Toast.LENGTH_LONG).show();
+                }
+            });
+    }
+
+    private List<Book> generateList(int count) {
+        Book book;
+        List<Book> booksList = new ArrayList();
+        for (int i = 0; i < count; i++) {
+            book = new Book();
+            book.setName("Book v5 #" + String.valueOf(i));
+            book.setAuthor(new Author("Author v5 #" + String.valueOf(i)));
+            booksList.add(book);
+        }
+        return booksList;
+    }
+
 
     private void login(){
         showProgress(getResources().getString(R.string.progress_login));

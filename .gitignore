@@ -6,3 +6,6 @@
 .DS_Store
 /build
 /captures
+/android-lib/
+/java-api-core/
+/.idea/

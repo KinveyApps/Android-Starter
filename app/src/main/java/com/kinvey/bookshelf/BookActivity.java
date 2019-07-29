@@ -46,7 +46,6 @@ import java.util.List;
  * Created by Prots on 3/15/16.
  */
 public class BookActivity extends AppCompatActivity implements View.OnClickListener {
-
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private final int SELECT_PHOTO = 2;
     private final String TAG = BookActivity.class.getSimpleName();
