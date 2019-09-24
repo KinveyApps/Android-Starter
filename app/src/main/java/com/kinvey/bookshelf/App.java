@@ -1,8 +1,7 @@
 package com.kinvey.bookshelf;
 
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.kinvey.android.Client;
 

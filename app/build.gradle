@@ -34,17 +34,27 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'META-INF/INDEX.LIST'
+  }
 }
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'com.google.http-client:google-http-client-android:1.19.0'
-  implementation 'com.android.support:appcompat-v7:28.0.0'
-  implementation 'com.android.support:design:28.0.0'
-  implementation 'com.android.support:multidex:1.0.3'
-  implementation ('com.github.kinvey:android-sdk:v4.3.1') {
+  implementation 'androidx.appcompat:appcompat:1.1.0'
+  implementation 'androidx.core:core:1.2.0-alpha04'
+  implementation 'com.google.android.material:material:1.1.0-alpha10'
+  implementation 'androidx.multidex:multidex:2.0.1'
+  implementation ('com.github.kinvey:android-sdk:v4.3.4') {
         exclude(module: 'guava-jdk5')
   }
-  implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
+  implementation 'com.facebook.android:facebook-android-sdk:5.5.1'
   testImplementation 'junit:junit:4.12'
 }
