@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShelfActivity"
+            android:name="com.kinvey.bookshelf.ui.activity.ShelfActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -41,10 +41,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BookActivity"
+            android:name="com.kinvey.bookshelf.ui.activity.BookActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ShelfActivity">
+            android:parentActivityName="com.kinvey.bookshelf.ui.activity.ShelfActivity">
         </activity>
     </application>
 

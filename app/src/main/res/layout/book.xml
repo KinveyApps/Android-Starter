@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.kinvey.bookshelf.BookActivity"
+    tools:context=".ui.activity.BookActivity"
 >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
+        android:id="@+id/myToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -36,7 +36,7 @@
                 android:inputType="text" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/image"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
@@ -59,7 +59,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/select_image_btn"
+                    android:id="@+id/selectImageBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -69,7 +69,7 @@
                     android:clickable="false"
                     android:layout_gravity="center"
                     android:text="Secelt Image for upload"
-                    android:id="@+id/selected_image_editText"
+                    android:id="@+id/selectedImageEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -87,14 +87,14 @@
 
 
                     <Button
-                        android:id="@+id/upload_to_internet"
+                        android:id="@+id/uploadToInternetBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:text="UPLOAD IMAGE" />
 
                     <Button
-                        android:id="@+id/remove"
+                        android:id="@+id/removeBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -102,7 +102,7 @@
         </LinearLayout>
 
                 <Spinner
-                    android:id="@+id/story_type_spinner"
+                    android:id="@+id/storyTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

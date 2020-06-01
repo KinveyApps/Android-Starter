@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 android {
@@ -47,14 +50,17 @@ android {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation "androidx.core:core-ktx:1.2.0-beta02"
   implementation 'com.google.http-client:google-http-client-android:1.19.0'
   implementation 'androidx.appcompat:appcompat:1.1.0'
-  implementation 'androidx.core:core:1.2.0-alpha04'
-  implementation 'com.google.android.material:material:1.1.0-alpha10'
+  implementation 'androidx.core:core:1.2.0-beta02'
+  implementation 'com.google.android.material:material:1.2.0-alpha01'
   implementation 'androidx.multidex:multidex:2.0.1'
-  implementation ('com.github.kinvey:android-sdk:v4.3.4') {
-        exclude(module: 'guava-jdk5')
+  implementation ('com.github.kinvey:android-sdk:master-SNAPSHOT') {
+    exclude(module: 'guava-jdk5')
   }
-  implementation 'com.facebook.android:facebook-android-sdk:5.5.1'
+  implementation 'com.jakewharton.timber:timber:4.7.1'
+  implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
   testImplementation 'junit:junit:4.12'
 }

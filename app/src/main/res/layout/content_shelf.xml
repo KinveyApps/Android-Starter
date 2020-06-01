@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.kinvey.bookshelf.ShelfActivity"
+    tools:context=".ui.activity.ShelfActivity"
     tools:showIn="@layout/activity_shelf"
-    android:id="@+id/shelf">
+    android:id="@+id/shelfList">
 
 </ListView>
